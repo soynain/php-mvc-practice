@@ -29,10 +29,13 @@ class Orm
     public function updateById($dataArray, $rowId)
     {
         $strForStm = "UPDATE {$this->tableName} SET ";
-        foreach ($dataArray as $key => $value) {
-            $strForStm . "{$key} = :{$key}," . " ";
+        foreach($dataArray as $key=>$value){
+            $strForStm.="{$key}=:{$key},";
         }
-        $stmExec = $this->conn->prepare($strForStm);
+        $strForStm=rtrim($strForStm,",");
+        $strForStm.=" WHERE {$this->id}={$rowId}"; 
+        //echo $strForStm;
+       $stmExec = $this->conn->prepare($strForStm);
         foreach ($dataArray as $key => $value) {
             $stmExec->bindValue(":{$key}", $value);
         }
