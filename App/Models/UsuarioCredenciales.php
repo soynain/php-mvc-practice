@@ -16,7 +16,7 @@ class UsuarioCredenciales extends Orm{
         $opciones=[
             'cost'=>12
         ];
-        $validateUserAndPassStm=$this->connInstance->prepare("SELECT usuario,contrasena FROM {$this->tableName} WHERE usuario=:USER");
+        $validateUserAndPassStm=$this->connInstance->prepare("SELECT usuario,contrasena,fkUsuarioDatos FROM {$this->tableName} WHERE usuario=:USER");
         $validateUserAndPassStm->bindValue(":USER",$username);
         //$validateUserAndPassStm->bindValue(":PASS",password_hash($password,PASSWORD_BCRYPT,$opciones));
         //$passwordMatchBool=

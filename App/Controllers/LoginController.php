@@ -1,6 +1,5 @@
 <?php
 /*Methods executed with the url extracted method name*/
-require_once __DIR__ . "/../Auth/SessionCreate.php";
 require_once __DIR__ . "/../Models/UsuarioCredenciales.php";
 class LoginController extends Controller
 {
@@ -9,6 +8,13 @@ class LoginController extends Controller
     {
         $this->loginModelInstance = new UsuarioCredenciales($connInstance);
     }
+
+    public function createSession($username, $idusuario)
+    {        //session_start();
+        $_SESSION["user"] = $username;
+        $_SESSION["id"] = $idusuario;
+    }
+
 
     public function login()
     {
@@ -21,10 +27,10 @@ class LoginController extends Controller
             $queryForCredentials = $this->loginModelInstance->validateUserAndPass($_POST["usernametxt"], $_POST["userpass"]);
 
             if (sizeof($queryForCredentials) > 0) {
-                createSession($queryForCredentials->usuario, $queryForCredentials->fkUsuarioDatos);
+                $this->createSession($queryForCredentials["usuario"], $queryForCredentials["fkUsuarioDatos"]);
                 header("Location:" . PUBLIC_PATH . "/dashboard/getproductos");
             } else {
-                header("Location:" . PUBLIC_PATH . "/");
+                header("Location:" . PUBLIC_PATH . "/login");
             }
         }
     }
@@ -32,7 +38,15 @@ class LoginController extends Controller
     public function logout()
     {
         if ($_GET)
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
             session_destroy();
-            header("Location:" . PUBLIC_PATH . "/");
+            unset($_SESSION);
+            header("Location:" . PUBLIC_PATH . "/login");
     }
 }

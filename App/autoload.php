@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/Middlewares/AuthMiddleware.php";
 require_once __DIR__."/../Core/Controller.php";
 require_once __DIR__."/Repositories/DatabaseRepository.php";
 require_once __DIR__."/Repositories/Orm.php";
