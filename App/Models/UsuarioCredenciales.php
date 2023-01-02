@@ -14,15 +14,16 @@ class UsuarioCredenciales extends Orm{
 
     public function validateUserAndPass($username,$password){
         $opciones=[
-            'cost'=>12,
-            'salt'=>'prueba'
+            'cost'=>12
         ];
-        $validateUserAndPassStm=$this->connInstance->prepare("SELECT usuario,contrasena FROM {$this->tableName} WHERE usuario=:USER and contrasena=:PASS");
+        $validateUserAndPassStm=$this->connInstance->prepare("SELECT usuario,contrasena FROM {$this->tableName} WHERE usuario=:USER");
         $validateUserAndPassStm->bindValue(":USER",$username);
-        $validateUserAndPassStm->bindValue(":PASS",password_hash($password,PASSWORD_BCRYPT,$opciones));
-        
+        //$validateUserAndPassStm->bindValue(":PASS",password_hash($password,PASSWORD_BCRYPT,$opciones));
+        //$passwordMatchBool=
         $validateUserAndPassStm->execute();
-        return $validateUserAndPassStm->fetch();
+        $credentials = $validateUserAndPassStm->fetch();
+        $validCredentialsBool=password_verify($password,$credentials["contrasena"]);
+        return $validCredentialsBool==true?$credentials:[];
     }
 }
 ?>

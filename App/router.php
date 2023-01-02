@@ -23,8 +23,6 @@ class Router{
         $dbconn=new DatabaseRepository();
         $controllerFunc=new $this->controller($dbconn->getConnection()); //so this means php can create constructors with a string it appears.
         /*Necessary to create a localvariable to host the method executer*/
-
-
         $methodExec=$this->method;
         $controllerFunc->$methodExec();//you execute one of the methods in the correspondent controller files
     }

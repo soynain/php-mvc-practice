@@ -10,6 +10,5 @@ echo $folderPath.'</br>';
 echo $urlPath.'</br>'; */
 
 define("URL",$url); //you define the url as constant eachtime you reload
-define("PUBLIC_PATH",$folderPath);
-
+define("PUBLIC_PATH",strtolower($folderPath));
 ?>

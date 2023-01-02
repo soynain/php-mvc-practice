@@ -8,7 +8,7 @@ class Productos extends Orm{
 
     public function __construct(PDO $connInstance)
     {
-        parent::__construct('idProducto','productosListado',$connInstance);
+        parent::__construct('idProducto','productos',$connInstance);
     }
 }
 ?>
