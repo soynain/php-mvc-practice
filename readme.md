@@ -4,9 +4,7 @@ A simple mvc crud for registration of products, with login.
 Simple, here I'm just tryna remember things to not get fired
 and also to know how to implement routers without frameworks.
 
-## Its important to remark, things as validations, front end validations, alerts and shit are
-## not included here since, I just want to remember how it is to code in vanilla php, no more, so
-## I dont get fired
+## Its important to remark, things as validations, front end validations, alerts and shit are not included here since, I just want to remember how it is to code in vanilla php, no more, so I dont get fired
 
 -Login page, fucking simple
 ![image](https://user-images.githubusercontent.com/78714792/210281351-215c44f4-159b-4cd7-9789-f7920ae122d6.png)
